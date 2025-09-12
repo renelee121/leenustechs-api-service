@@ -2,9 +2,9 @@ package com.mx.leenustechs.api.rest;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mx.leenustechs.api.dto.PromptEventDto;
-import com.mx.leenustechs.api.model.request.PromptEventRequest;
-import com.mx.leenustechs.api.model.response.PromptEventResponse;
+import com.mx.leenustechs.api.dto.GenericEventObjectDto;
+import com.mx.leenustechs.api.model.request.GenericEventObjectRequest;
+import com.mx.leenustechs.api.model.response.GenericEventObjectResponse;
 import com.mx.leenustechs.api.service.OperationTypeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,8 @@ public class DefaultController {
     OperationTypeService operationTypeService;
 
     @PostMapping("/calculadora")
-    public PromptEventResponse calculadora(@RequestBody PromptEventRequest request) {
-        PromptEventDto dto = new PromptEventDto(request);
+    public GenericEventObjectResponse calculadora(@RequestBody GenericEventObjectRequest request) {
+        GenericEventObjectDto dto = new GenericEventObjectDto(request);
         return dto.getOperationType().execute(dto.toModel(), operationTypeService);
     }
     

@@ -1,5 +1,8 @@
-package com.mx.leenustechs.api.model.request;
+package com.mx.leenustechs.api.model.response;
 
+import java.util.UUID;
+
+import com.fasterxml.jackson.databind.JsonNode;
 import com.mx.leenustechs.api.model.types.OperationType;
 
 import lombok.AllArgsConstructor;
@@ -9,8 +12,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PromptEventRequest{
+public class GenericEventObjectResponse{
+    private UUID transactionId;
     private OperationType operationType;
-    private Number a;
-    private Number b;
+    private JsonNode payload;
 }

@@ -2,11 +2,11 @@ package com.mx.leenustechs.api.bussines;
 
 import org.springframework.stereotype.Service;
 
-import com.mx.leenustechs.api.model.PromptEvent;
-import com.mx.leenustechs.api.model.response.PromptEventResponse;
+import com.mx.leenustechs.api.model.GenericEventObject;
+import com.mx.leenustechs.api.model.response.GenericEventObjectResponse;
 
 
 @Service
 public interface EventOperation {
-    PromptEventResponse execute(PromptEvent event);
+    GenericEventObjectResponse execute(GenericEventObject event);
 }

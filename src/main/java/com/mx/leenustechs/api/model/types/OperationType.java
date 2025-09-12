@@ -1,8 +1,8 @@
 package com.mx.leenustechs.api.model.types;
 
 import com.mx.leenustechs.api.bussines.EventOperation;
-import com.mx.leenustechs.api.model.PromptEvent;
-import com.mx.leenustechs.api.model.response.PromptEventResponse;
+import com.mx.leenustechs.api.model.GenericEventObject;
+import com.mx.leenustechs.api.model.response.GenericEventObjectResponse;
 import com.mx.leenustechs.api.service.OperationTypeService;
 
 public enum OperationType {
@@ -14,8 +14,8 @@ public enum OperationType {
     EXPONENTE,
     FACTORIAL;
 
-    public PromptEventResponse execute(PromptEvent PromptEvent, OperationTypeService operationTypeService){
+    public GenericEventObjectResponse execute(GenericEventObject GenericEventObject, OperationTypeService operationTypeService){
         EventOperation operation = operationTypeService.getOperation(this);
-        return operation.execute(PromptEvent);
+        return operation.execute(GenericEventObject);
     }
 }
