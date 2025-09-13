@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: hostinger.leenustechs.com.mx:5000/leenustechs-api-service:bdfea4fc09f734217841fb744b0548dc85934fd6
+          image: hostinger.leenustechs.com.mx:5000/leenustechs-api-service:c3bf5919db66394b4deb4355de7d076677f9e90c
           ports:
             - containerPort: 8080
           resources:
