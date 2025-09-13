@@ -24,20 +24,18 @@ public class SyncManagerServiceImpl implements SyncManagerService {
 
     @Override
     public Mono<GenericEventObjectResponse> consultReactive(String transactionId) {
-        Retry retry = Retry.fixedDelay(10, Duration.ofMillis(500))
-                .filter(e -> e instanceof RuntimeException 
-                    && e.getMessage() != null 
-                    && e.getMessage().startsWith("Error en GET"));
-
-        return Mono.defer(() -> Mono.fromCallable(() -> {
-            String json = restClientService.getDataFromService(transactionId);
-            try {
-                return objectMapper.readValue(json, GenericEventObjectResponse.class);
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
-            }
-        })).retryWhen(retry);
-
+        return restClientService.getDataFromService(transactionId)
+                .map(json -> {
+                    try {
+                        return objectMapper.readValue(json, GenericEventObjectResponse.class);
+                    } catch (JsonProcessingException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .retryWhen(Retry.fixedDelay(10, Duration.ofMillis(500))
+                        .filter(e -> e instanceof RuntimeException
+                                && e.getMessage() != null
+                                && e.getMessage().startsWith("Error en GET")));
     }
 
 }
