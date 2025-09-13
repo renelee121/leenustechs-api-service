@@ -10,6 +10,8 @@ import com.mx.leenustechs.api.model.response.GenericEventObjectResponse;
 import com.mx.leenustechs.api.service.ProducerService;
 import com.mx.leenustechs.api.service.SyncManagerService;
 
+import reactor.core.publisher.Mono;
+
 @Component
 public class GenericEventUseCase implements EventOperation {
 
@@ -20,10 +22,10 @@ public class GenericEventUseCase implements EventOperation {
     public SyncManagerService syncManagerService;
 
     @Override
-    public GenericEventObjectResponse execute(GenericEventObject event) {
+    public Mono<GenericEventObjectResponse> execute(GenericEventObject event) {
         GenericEventObjectDto dto = new GenericEventObjectDto(event);
         producerService.sendMessage(dto.getTransactionId().toString(), dto.toModel());
-        return  syncManagerService.consult(dto.getTransactionId().toString());
+        return  syncManagerService.consultReactive(dto.getTransactionId().toString());
     }
     
 }
