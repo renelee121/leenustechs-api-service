@@ -5,6 +5,8 @@ import com.mx.leenustechs.api.model.GenericEventObject;
 import com.mx.leenustechs.api.model.response.GenericEventObjectResponse;
 import com.mx.leenustechs.api.service.OperationTypeService;
 
+import reactor.core.publisher.Mono;
+
 public enum OperationType {
     SUMA,
     RESTA,
@@ -14,7 +16,7 @@ public enum OperationType {
     EXPONENTE,
     FACTORIAL;
 
-    public GenericEventObjectResponse execute(GenericEventObject GenericEventObject, OperationTypeService operationTypeService){
+    public Mono<GenericEventObjectResponse> execute(GenericEventObject GenericEventObject, OperationTypeService operationTypeService){
         EventOperation operation = operationTypeService.getOperation(this);
         return operation.execute(GenericEventObject);
     }

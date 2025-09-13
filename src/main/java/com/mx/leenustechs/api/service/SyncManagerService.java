@@ -4,7 +4,9 @@ import org.springframework.stereotype.Service;
 
 import com.mx.leenustechs.api.model.response.GenericEventObjectResponse;
 
+import reactor.core.publisher.Mono;
+
 @Service
 public interface SyncManagerService {
-    public GenericEventObjectResponse consult(String transactionId);
+    public Mono<GenericEventObjectResponse> consultReactive(String transactionId);
 }
