@@ -25,7 +25,9 @@ public class SyncManagerServiceImpl implements SyncManagerService {
     @Override
     public Mono<GenericEventObjectResponse> consultReactive(String transactionId) {
         Retry retry = Retry.fixedDelay(10, Duration.ofMillis(500))
-                   .filter(e -> e.getMessage().contains("Event not found"));
+                .filter(e -> e instanceof RuntimeException
+                        && e.getMessage() != null
+                        && e.getMessage().contains("Event not found"));
 
         return Mono.defer(() -> Mono.fromCallable(() -> {
             String json = restClientService.getDataFromService(transactionId);
@@ -34,10 +36,8 @@ public class SyncManagerServiceImpl implements SyncManagerService {
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }
-        }))
-        .retryWhen(retry);
+        })).retryWhen(retry);
 
     }
-
 
 }
